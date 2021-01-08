@@ -86,7 +86,7 @@ head(df9)
 library(NbClust)
 library(ggplot2)
 
-data_scale = scale(df9)
+data_scale = scale(df9[,2:3])
 data_dist = dist(data_scale, method = "euclidean", diag = T)
 
 data_clust = hclust(data_dist, method = "ward.D2")
@@ -100,11 +100,11 @@ datak = kmeans(data_scale, nclust)
 
 ggplot(df9, aes(life_expec, GDP_per_capita, color = datak$cluster)) + geom_point()
 
-ggplot(as.data.frame(data_scale), aes(x=life_expec, y=GDP_per_capita, size = Population, color = datak$cluster)) + geom_point(alpha=0.7) 
+ggplot(as.data.frame(df9), aes(x=life_expec, y=GDP_per_capita, size = Population, color = datak$cluster)) + geom_point(alpha=0.7) 
 
 ggplot(as.data.frame(data_scale), aes(x=life_expec, y=GDP_per_capita, size = 10, color = datak$cluster)) + geom_text(alpha=0.7, label = rownames(df9)) 
 
-ggplot(as.data.frame(data_scale), aes(x=life_expec, y=GDP_per_capita, size = Population, color = datak$cluster)) + geom_point() +
+ggplot(as.data.frame(df9), aes(x=life_expec, y=GDP_per_capita, size = Population, color = datak$cluster)) + geom_point() +
   scale_fill_gradient(low = 'palegreen', high = 'palegreen4')
 
 ggplot(as.data.frame(data_scale), aes(x=life_expec, y=GDP_per_capita, size = 10, color = datak$cluster)) + geom_text(label = rownames(df9)) +
