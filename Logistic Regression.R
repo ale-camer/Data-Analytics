@@ -20,12 +20,16 @@ model = glm(formula = work ~ ., data = train, family = "gaussian")
 summary(model)
 prob = model %>% predict(test, type = "response")
 pred = ifelse(prob >= 0.50, "yes", "no")
-mean(pred == test$work)
+acc_1 = mean(pred == test$data.work)
+acc_1
 
 prob_2 = model %>% predict(test2, type = "response")
 pred_2 = ifelse(prob_2 >= 0.50, "yes", "no")
-mean(pred_2 == test2$work)
+acc_2 = mean(pred_2 == test2$data.work)
+acc_2
 
-pred_22 = ifelse(test2$work == "yes", 1, 0)
+par(mfrow = c(2,2))
+plot(model)
 
-plot(prob_2, pred_22)
+par(mfrow = c(,2))
+Epi::ROC(data = data1, form = data.work ~ data.educw + data.experience + data.wageh)
